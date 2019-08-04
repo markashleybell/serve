@@ -18,9 +18,7 @@ I've always previously used `python -m http.server` from within a folder to acco
 
 `serve [<path>] [--port=PORT]`
 
-You can either run `serve` from within the directory you wish to start serving, or from elsewhere by specifying the `path` argument. 
-
-The default HTTPS port is `5000`, but you can override this if you wish; the HTTP port will just be the HTTPS port number + 1 (so default `5001`).
+You can either run `serve` from within the directory you wish to start serving, or from elsewhere by specifying the `path` argument. The default HTTPS port is `5000`, but you can override this if you wish; the HTTP port will just be the HTTPS port number + 1 (so the default is `5001`).
 
 ## Thanks
 

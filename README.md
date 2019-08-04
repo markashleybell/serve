@@ -20,7 +20,13 @@ I've always previously used `python -m http.server` from within a folder to acco
 
 You can either run `serve` from within the directory you wish to start serving, or from elsewhere by specifying the `path` argument. The default HTTPS port is `5000`, but you can override this if you wish; the HTTP port will just be the HTTPS port number + 1 (so the default is `5001`).
 
+## Context menu (Windows only)
+
+`serve --register` installs context menu items, which will allow you to right-click a folder in Windows Explorer and start serving it. To remove the menu items, run `serve --unregister`.
+
 ## Thanks
+
+Icons made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market">Vectors Market</a> (from <a href="https://www.flaticon.com/"                 title="Flaticon">www.flaticon.com</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>).
 
 This utility is based on code from [this article](https://www.meziantou.net/starting-a-http-file-server-from-the-file-explorer-using-dotnet-core-2-0-and-kestrel.htm) by Gérald Barré.
 

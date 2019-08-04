@@ -9,9 +9,12 @@ void Main()
     // Usage: serve [<path>] [-port PORT]
     
     var usage = @"Usage: serve [<path>] [--port=PORT]
+                         serve (--register|--unregister)
 
--h --help   show this
+-h --help     show this
 --port=PORT   https port
+--register    register shell extension
+--unregister  unregister shell extension
 ";
 
     //var input = @"";
@@ -20,6 +23,9 @@ void Main()
     //var input = @"C:\Temp --port=1234";
     //var input = @"agfasdga dasdg asdgasdg";
     //var input = @"-h";
+    //var input = @"--register";
+    //var input = @"--unregister";
+    //var input = @"--register --unregister";
 
     var args = input.Split(' ');
 

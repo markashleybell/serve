@@ -73,7 +73,7 @@ Usage: serve [<path>] [--port=PORT]
 
         private static void RegisterContextMenu()
         {
-            var location = Assembly.GetEntryAssembly().Location;
+            var location = Path.Join(AppContext.BaseDirectory, "serve.exe");
 
             foreach (var registryClass in _contextMenuRegistryClasses)
             {
@@ -94,20 +94,18 @@ Usage: serve [<path>] [--port=PORT]
 
         private static void AddContextMenuRegistryKey(string location, string registryClass)
         {
-            using (var key = Registry.CurrentUser.CreateSubKey($@"SOFTWARE\Classes\{registryClass}\shell\servedotexe"))
-            {
-                key.SetValue(string.Empty, $"Serve Files at https://localhost:{_defaultHttpsPort}", RegistryValueKind.String);
-                key.SetValue("Icon", location, RegistryValueKind.String);
+            using var key = Registry.CurrentUser.CreateSubKey($@"SOFTWARE\Classes\{registryClass}\shell\servedotexe");
 
-                using (var commandKey = key.CreateSubKey("command"))
-                {
-                    var command = location.EndsWith(".dll")
-                        ? $"\"C:\\Program Files\\dotnet\\dotnet.exe\" \"{location}\" \"%V\""
-                        : $"\"{location}\" \"%V\"";
+            key.SetValue(string.Empty, $"Serve Files at https://localhost:{_defaultHttpsPort}", RegistryValueKind.String);
+            key.SetValue("Icon", location, RegistryValueKind.String);
 
-                    commandKey.SetValue(string.Empty, command, RegistryValueKind.String);
-                }
-            }
+            var command = location.EndsWith(".dll")
+                ? $"\"C:\\Program Files\\dotnet\\dotnet.exe\" \"{location}\" \"%V\""
+                : $"\"{location}\" \"%V\"";
+
+            using var commandKey = key.CreateSubKey("command");
+
+            commandKey.SetValue(string.Empty, command, RegistryValueKind.String);
         }
     }
 }

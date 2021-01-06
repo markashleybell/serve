@@ -10,7 +10,7 @@ namespace serve
 {
     public class Program
     {
-        private const int _defaultHttpsPort = 5000;
+        private const int _defaultHttpsPort = 5001;
 
         private const string USAGE = @"
 Usage: serve [<path>] [--port=PORT]
@@ -59,7 +59,7 @@ Usage: serve [<path>] [--port=PORT]
                 ? arguments["--port"].AsInt
                 : _defaultHttpsPort;
 
-            var httpPort = httpsPort + 1;
+            var httpPort = httpsPort - 1;
 
             WebHost.CreateDefaultBuilder()
                 .UseStartup<Startup>()

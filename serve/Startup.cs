@@ -5,6 +5,7 @@ namespace serve
 {
     public class Startup
     {
+#pragma warning disable CA1822 // Mark members as static
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             var fileServerOptions = new FileServerOptions {

@@ -64,13 +64,13 @@ Usage: serve [<path>] [--port=PORT]
                 Environment.Exit(0);
             }
 
-            var path = arguments["<path>"] != null
+            var path = !arguments["<path>"].IsNullOrEmpty
                 ? arguments["<path>"].ToString()
                 : Directory.GetCurrentDirectory();
 
             Environment.CurrentDirectory = path;
 
-            var httpsPort = arguments["--port"] != null
+            var httpsPort = !arguments["--port"].IsNullOrEmpty
                 ? arguments["--port"].AsInt
                 : DefaultHttpsPort;
 

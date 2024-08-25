@@ -4,7 +4,7 @@ Command-line utility to serve static files from a folder, using the Kestrel web 
 
 ## Prerequisites
 
-You'll need the [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/5.0) to build this project.
+You'll need the [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) to build this project.
 
 ## Why?
 

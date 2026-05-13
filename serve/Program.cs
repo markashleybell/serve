@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.Versioning;
 using DocoptNet;
-using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Win32;
 
@@ -22,10 +22,10 @@ Usage: serve [<path>] [--port=PORT]
 --unregister  Remove context menu items (WINDOWS ONLY)
 ";
 
-        private static readonly string[] _contextMenuRegistryClasses = new[] {
+        private static readonly string[] _contextMenuRegistryClasses = [
             "Directory",
             "Directory\\Background"
-        };
+        ];
 
         public static void Main(string[] args)
         {
@@ -76,14 +76,30 @@ Usage: serve [<path>] [--port=PORT]
 
             var httpPort = httpsPort - 1;
 
-            WebHost.CreateDefaultBuilder()
-                .UseStartup<Startup>()
-                .UseKestrel()
-                .UseContentRoot(path)
-                .UseWebRoot(path)
-                .UseUrls($"http://localhost:{httpPort}", $"https://localhost:{httpsPort}")
-                .Build()
-                .Run();
+            var options = new WebApplicationOptions {
+                ContentRootPath = path,
+                WebRootPath = path,
+            };
+
+            var builder = WebApplication.CreateBuilder(options);
+
+            builder.WebHost.UseSetting(
+                key: WebHostDefaults.ServerUrlsKey,
+                value: $"http://localhost:{httpPort};https://localhost:{httpsPort}");
+
+            var app = builder.Build();
+
+            var fileServerOptions = new FileServerOptions {
+                EnableDefaultFiles = true,
+                EnableDirectoryBrowsing = true,
+                FileProvider = app.Environment.WebRootFileProvider
+            };
+
+            fileServerOptions.StaticFileOptions.ServeUnknownFileTypes = true;
+
+            app.UseFileServer(fileServerOptions);
+
+            app.Run();
         }
 
         [SupportedOSPlatform("windows")]

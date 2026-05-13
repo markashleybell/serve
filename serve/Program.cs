@@ -10,7 +10,7 @@ namespace serve
 {
     public static class Program
     {
-        private const int DefaultHttpsPort = 5001;
+        private const int DefaultHttpsPort = 6001;
 
         private const string USAGE = @"
 Usage: serve [<path>] [--port=PORT]
